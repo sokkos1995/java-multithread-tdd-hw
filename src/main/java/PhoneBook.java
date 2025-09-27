@@ -1,16 +1,15 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PhoneBook {
 
     private final Map<String, String> nameToNumber;    // Для поиска по имени
     private final Map<String, String> numberToName;    // Для поиска по номеру
+    private final TreeSet<String> names;               // Для хранения имен в отсортированном порядке
 
     public PhoneBook() {
         nameToNumber = new HashMap<>();
         numberToName = new HashMap<>();
+        names = new TreeSet<>();
     }
 
     public int add(String name, String number) {
@@ -20,6 +19,7 @@ public class PhoneBook {
 
         nameToNumber.put(name, number);
         numberToName.put(number, name);
+        names.add(name);
 
         return nameToNumber.size();
     }
@@ -34,7 +34,7 @@ public class PhoneBook {
 
     public List<String> printAllNames() {
         // TODO: реализовать
-        return new ArrayList<>();
+        return new ArrayList<>(names); // TreeSet уже отсортирован
     }
 
 }
