@@ -1,7 +1,8 @@
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import java.util.List;
+
+import static org.junit.Assert.*;
 
 public class PhoneBookTest {
     @Test
@@ -47,5 +48,27 @@ public class PhoneBookTest {
 
         // Поиск несуществующего имени
         assertNull(phoneBook.findByName("Charlie"));
+    }
+
+    @Test
+    public void testPrintAllNames() {
+        PhoneBook phoneBook = new PhoneBook();
+
+        // Проверяем пустую книгу
+        assertTrue(phoneBook.printAllNames().isEmpty());
+
+        // Добавляем контакты в разном порядке
+        phoneBook.add("Charlie", "555-555-555");
+        phoneBook.add("Alice", "123-456-789");
+        phoneBook.add("Bob", "987-654-321");
+
+        // Проверяем сортировку по алфавиту
+        List<String> result = phoneBook.printAllNames();
+        assertEquals(List.of("Alice", "Bob", "Charlie"), result);
+
+        // Добавляем еще один контакт и проверяем порядок
+        phoneBook.add("David", "111-222-333");
+        result = phoneBook.printAllNames();
+        assertEquals(List.of("Alice", "Bob", "Charlie", "David"), result);
     }
 }
